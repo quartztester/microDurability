@@ -8,7 +8,8 @@ pluginManagement {
 		mavenCentral()
 	}
 	plugins {
-		id 'fabric-loom' version "${fabric_loom_version}"
+		id 'net.fabricmc.fabric-loom-remap' version '1.18.0-alpha.16'
+		id 'net.fabricmc.fabric-loom' version '1.18.0-alpha.16'
 		id 'com.diffplug.spotless' version "${spotless_version}"
 	}
 }
@@ -23,4 +24,6 @@ include 'microdurability-1.19.4'
 include 'microdurability-1.20'
 include 'microdurability-1.20.5'
 include 'microdurability-1.21'
+include 'microdurability-26.2'
+include 'microdurability-26.2-render-test'
 include 'microdurability-dev-env-extras'

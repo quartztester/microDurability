@@ -1,5 +1,5 @@
 base {
-	archivesBaseName += '-dev-env-extras'
+	archivesName = archivesName.get() + '-dev-env-extras'
 }
 
 dependencies {

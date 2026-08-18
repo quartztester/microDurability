@@ -1,0 +1,30 @@
+base {
+	archivesName = archivesName.get() + '-compat-26-2'
+}
+
+dependencies {
+	minecraft "com.mojang:minecraft:${project.minecraft_version_26_2}"
+	// MC 26.x is non-obfuscated: no mappings, base fabric-loom plugin, standard
+	// `implementation`/`compileOnly` (no mod* variants). See AGENTS.md.
+
+	// Self-contained: this module cannot depend on microdurability-core or any
+	// compat module (they are compiled against yarn names; 26.x uses official names).
+	// No config library: ModConfig262 is a plain POJO (see that file).
+}
+
+// Self-contained on 26.x (the umbrella mod can't load here), so carry our own icon for ModMenu.
+processResources {
+	from("${rootDir}/assets/icon.png") {
+		into 'assets/microdurability/'
+	}
+}
+
+// MC 26.x (and its mod ecosystem, e.g. cloth-config 26.2.x) targets JVM 25+.
+java {
+	sourceCompatibility = JavaVersion.VERSION_25
+	targetCompatibility = JavaVersion.VERSION_25
+}
+
+tasks.withType(JavaCompile).configureEach {
+	it.options.release = 25
+}

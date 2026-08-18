@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom'
+	id 'net.fabricmc.fabric-loom-remap' version '1.18.0-alpha.16'
 	id 'checkstyle'
 	id 'com.diffplug.spotless'
 }
@@ -20,7 +20,12 @@ try {
 
 
 allprojects {
-	apply plugin: 'fabric-loom'
+	// MC 26.x is non-obfuscated and uses the base loom plugin; everything else uses the remap plugin.
+	if (project.name.startsWith('microdurability-26.2')) {
+		apply plugin: 'net.fabricmc.fabric-loom'
+	} else {
+		apply plugin: 'net.fabricmc.fabric-loom-remap'
+	}
 	apply plugin: 'checkstyle'
 	apply plugin: 'com.diffplug.spotless'
 
@@ -84,13 +89,18 @@ allprojects {
 	}
 
 	dependencies {
-		modImplementation "net.fabricmc:fabric-loader:${project.fabric_loader_version}"
+		if (project.name.startsWith('microdurability-26.2')) {
+			// Non-obfuscated module: standard Gradle configurations, no mod* variants.
+			implementation "net.fabricmc:fabric-loader:${project.fabric_loader_version}"
+		} else {
+			modImplementation "net.fabricmc:fabric-loader:${project.fabric_loader_version}"
 
-		if (project.name != 'microdurability'
-				&& project.name != 'microdurability-core'
-				&& project.name != 'microdurability-dev-env-extras') {
-			runtimeOnly project(path: ':microdurability-dev-env-extras', configuration: 'namedElements')
-			modRuntimeOnly "com.github.Chocohead:Fabric-ASM:${project.fabric_asm_version}"
+			if (project.name != 'microdurability'
+					&& project.name != 'microdurability-core'
+					&& project.name != 'microdurability-dev-env-extras') {
+				runtimeOnly project(path: ':microdurability-dev-env-extras', configuration: 'namedElements')
+				modRuntimeOnly "com.github.Chocohead:Fabric-ASM:${project.fabric_asm_version}"
+			}
 		}
 	}
 
@@ -155,6 +165,8 @@ dependencies {
 	include project(path: ':microdurability-1.20')
 	include project(path: ':microdurability-1.20.5')
 	include project(path: ':microdurability-1.21')
+	include project(path: ':microdurability-26.2')
+	include project(path: ':microdurability-dev-env-extras')
 
 	runtimeOnly project(path: ':microdurability-core', configuration: "namedElements")
 	runtimeOnly project(path: ':microdurability-1.16', configuration: "namedElements")
@@ -164,6 +176,8 @@ dependencies {
 	runtimeOnly project(path: ':microdurability-1.20', configuration: "namedElements")
 	runtimeOnly project(path: ':microdurability-1.20.5', configuration: "namedElements")
 	runtimeOnly project(path: ':microdurability-1.21', configuration: "namedElements")
+	// 26.2 uses the base loom plugin (non-obfuscated) - no `namedElements` configuration, use `default`.
+	runtimeOnly project(path: ':microdurability-26.2', configuration: "default")
 
 	modRuntimeOnly "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version_1_21}"
 	modRuntimeOnly "com.terraformersmc:modmenu:${project.modmenu_version_1_21}"

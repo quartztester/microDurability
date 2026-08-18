@@ -1,0 +1,32 @@
+{
+	"schemaVersion": 1,
+	"id": "microdurability-compat-26-2",
+	"version": "${version}",
+	"name": "microDurability 26.2 Compat",
+	"icon": "assets/microdurability/icon.png",
+	"license": "MPL-2.0",
+	"environment": "client",
+	"entrypoints": {
+		"main": [
+			"com.github.reviversmc.microdurability.MicroDurability262"
+		],
+		"microdurability": [
+			"com.github.reviversmc.microdurability.MicroDurability262"
+		]
+	},
+	"mixins": [
+		"microdurability262.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.12.9",
+		"minecraft": ">=26.2"
+	},
+	"custom": {
+		"modmenu": {
+			"badges": ["library"],
+			"parent": {
+				"id": "microdurability"
+			}
+		}
+	}
+}

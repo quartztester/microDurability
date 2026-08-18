@@ -1,0 +1,24 @@
+{
+	"schemaVersion": 1,
+	"id": "microdurability-render-test",
+	"version": "${version}",
+	"name": "microDurability Render Test",
+	"description": "Headless render-path test: auto-creates a world and equips damaged armor.",
+	"authors": [
+		"Reviver"
+	],
+	"license": "MPL-2.0",
+	"environment": "client",
+	"entrypoints": {
+		"client": [
+			"com.github.reviversmc.microdurability.rendertest.RenderTestMod"
+		]
+	},
+	"mixins": [
+		"microdurabilityrendertest.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.12.9",
+		"minecraft": ">=26.2"
+	}
+}

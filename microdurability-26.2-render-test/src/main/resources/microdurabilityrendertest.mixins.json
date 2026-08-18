@@ -1,0 +1,12 @@
+{
+	"required": true,
+	"package": "com.github.reviversmc.microdurability.rendertest.mixin",
+	"compatibilityLevel": "JAVA_25",
+	"client": [
+		"MixinMinecraft",
+		"ICreateWorldScreen"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}

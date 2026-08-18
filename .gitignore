@@ -39,3 +39,10 @@ hs_err_*.log
 replay_*.log
 *.hprof
 *.jfr
+
+# Session artifacts
+manifest.json
+build.log
+build262.log
+spotless.log
+spotless262.log
